@@ -1,208 +1,70 @@
-# Login-Authentication
-Login Application using React , MySQL and .net core web API with Firebase Authentication
+# Getting Started with Create React App
 
-Output :
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-![image](https://github.com/Kbn-svg/Login-Authentication/assets/59970805/529f0a1e-4bb1-47f7-b8bc-57666b5a46c6)
+## Available Scripts
 
+In the project directory, you can run:
 
+### `npm start`
 
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
+### `npm test`
 
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Login Application using React , MySQL and .net core web API
+### `npm run build`
 
-Installation needed to run this application:
-1. Visual Studio Code for Frontend (React)
-2. Visual Studio for Backend (.Net Core Web API)
-3. Microsoft SQL Server (Database Part)
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Technologies :
-1.React
-2..Net Core Web API
-3.MSSQL Server
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-steps to run this application:
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-For Frontend Part 
-1.Create new project in firebase for otp authentication
-check here https://codinglatte.com/posts/how-to/how-to-create-a-firebase-project/
+### `npm run eject`
 
-2.Copy the details of your firebase web app  as shown below and paste in React App -> firebase.js file
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-const firebaseConfig = {
-    apiKey: "AIzaSyAJzaPI93lsgcf9fniLuvPTg42eqqU1WjE",
-    authDomain: "login-9aa48.firebaseapp.com",
-    projectId: "login-9aa48",
-    storageBucket: "login-9aa48.appspot.com",
-    messagingSenderId: "211534932707",
-    appId: "1:211534932707:web:b2b0687ad0e634ebfc33d6",
-    measurementId: "G-GWNG262W32"
-  };
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-3.Open ReactApp Folder in Visual Studio Code and make changes in firebase.js as shown above.
-Import Firebase in Visual Studio Code using below command .
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-"npm install firebase"
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-Your frontend part will ready to run now
+## Learn More
 
-For Backend Part 
-1.Import Datbase file in Microsoft SQL SERVER Management Studio
-2.Opem Solution present in WebAPI folder and replace the  the connection string with your database connection string.
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-Details Steps :
+### Code Splitting
 
-Create a new React project using create-react-app:
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-npx create-react-app login-app
+### Analyzing the Bundle Size
 
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-Install the necessary dependencies:
-npm install firebase axios
+### Making a Progressive Web App
 
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-Create a Firebase account and configure it with your React app. Use the following code to send an OTP to the user's phone number:
+### Advanced Configuration
 
-import firebase from "firebase/app";
-import "firebase/auth";
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-const app = firebase.initializeApp({
-  // Your Firebase config goes here
-});
+### Deployment
 
-export function sendOTP(phoneNumber) {
-  return app.auth().signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier);
-}
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
+### `npm run build` fails to minify
 
-Create a .NET Core Web API project using Visual Studio:
-
-Create a new project in Visual Studio.
-
-Select ".NET Core" as the project type and "Web API" as the project template.
-
-Add the following NuGet packages: 
-MySql.Data, Microsoft.EntityFrameworkCore,
-Microsoft.EntityFrameworkCore.Design.
-
-
-
-Create a database and a table for storing the phone numbers and OTPs:
-
-CREATE DATABASE login_db;
-USE login_db;
-
-CREATE TABLE login (
-  id INT NOT NULL AUTO_INCREMENT,
-  phone_number VARCHAR(20) NOT NULL,
-  otp VARCHAR(10) NOT NULL,
-  PRIMARY KEY (id)
-);
-
-
-
-Create a data model for the login table:
-csharp
-
-using System.ComponentModel.DataAnnotations;
-
-namespace LoginAPI.Models
-{
-    public class Login
-    {
-        [Key]
-        public int Id { get; set; }
-        public string PhoneNumber { get; set; }
-        public string OTP { get; set; }
-    }
-}
-
-
-
-Create a DbContext class for the database:
-arduino
-Copy code
-using LoginAPI.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace LoginAPI.Data
-{
-    public class LoginContext : DbContext
-    {
-        public LoginContext(DbContextOptions<LoginContext> options) : base(options)
-        {
-        }
-
-        public DbSet<Login> Logins { get; set; }
-    }
-}
-  
-  
-  
-  
-  
-Create a controller for the login API:
-
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using LoginAPI.Data;
-using LoginAPI.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
-namespace LoginAPI.Controllers
-{
-    [ApiController]
-    [Route("api/[controller]")]
-    public class LoginController : ControllerBase
-    {
-        private readonly LoginContext _context;
-
-        public LoginController(LoginContext context)
-        {
-            _context = context;
-        }
-
-        [HttpPost("sendotp")]
-        public async Task<IActionResult> SendOTP(Login login)
-        {
-            // Generate an OTP and store it in the database
-            var otp = GenerateOTP();
-            login.OTP = otp;
-            _context.Logins.Add(login);
-            await _context.SaveChangesAsync();
-
-            // Send the OTP to the user's phone number
-            // You can use Twilio or any other SMS provider for this
-            // For now, we'll just return the OTP
-            return Ok(new { otp });
-        }
-
-        [HttpPost("validateotp")]
-        public async Task<IActionResult> ValidateOTP(Login login)
-        {
-            // Check if the entered OTP matches the one in the database
-            var result = await _context.Logins
-                .Where(l => l.PhoneNumber == login.PhoneNumber && l.OTP == login.OTP)
-                .FirstOrDefaultAsync();
-
-            if (result != null)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-            }
-        }
-
-        private string GenerateOTP()
-        {
-            // Generate a 6-digit OTP
-            Random rand = new Random();
-            return rand.Next(100000, 999999).ToString();
-       
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
